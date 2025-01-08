@@ -15,8 +15,6 @@ public class Config extends ConfigProvider {
 
     public void updateLinks() {
         SocialFire.ANNOUNCEMENT_MANAGER.reload();
-        SocialFire.LOGGER.info("DOES THIS FUCKING WORK???????");
-        SocialFire.LOGGER.info(getLinks().toString());
     }
 
     public Map<String, LinkModel> getLinks() {
