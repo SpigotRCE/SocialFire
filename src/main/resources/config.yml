@@ -1,0 +1,33 @@
+announcements:
+  store:
+    link: https://store.xyz.abc
+    interval: 180 # in seconds
+    sound: ""
+    message: |-
+      &f
+      &e🛒 Server Store
+
+      &fPurchase &eranks, coins, keys &fand much
+      &fmore at our &estore & support &fthe server!
+
+      &e➟ &nstore.xyz.abc
+      &f
+    "action-bar": "§e🛒 &lSTORE §7| §fhttps://store.xyz.abc"
+  discord:
+    link: https://discord.gg/xyz
+    interval: 140 # in seconds
+    sound: ""
+    message: |-
+      &f
+      &9✉ Server Discord
+
+      &fStay up to date with all &9announcements,
+      &9gveaways, events &fand much more!
+
+      &9➟ &ndiscord.gg/xyz
+      &f
+    "action-bar": "§9✉ &lDISCORD §7| §fhttps://discord.gg/xyz"
+
+
+# DO NOT EDIT
+file-version: 1
