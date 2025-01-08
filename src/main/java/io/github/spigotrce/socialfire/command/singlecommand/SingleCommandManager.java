@@ -10,10 +10,11 @@ public class SingleCommandManager extends AbstractBrigadierCommand {
     LiteralArgumentBuilder<CommandSource> command;
 
     public SingleCommandManager() {
-        super("socialfire");
+        super(false, "socialfire");
         command = LiteralArgumentBuilder.literal(super.commandName);
         command.requires(invoker -> invoker.hasPermission("socialfire.admin"));
         registerCommand(new ReloadCommand());
+        super.register();
     }
 
     public void registerCommand(AbstractBrigadierCommand singleCommand) {

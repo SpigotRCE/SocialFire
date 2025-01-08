@@ -20,7 +20,7 @@ public abstract class AbstractBrigadierCommand {
         register();
     }
 
-    private void register() {
+    public void register() {
         SocialFire.PROXY_SERVER.getCommandManager().register(
                 SocialFire.PROXY_SERVER.getCommandManager().metaBuilder(commandName)
                         .aliases(commandAliases).plugin(SocialFire.INSTANCE).build(),
