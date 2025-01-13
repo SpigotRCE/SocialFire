@@ -1,24 +1,27 @@
-package io.github.spigotrce.socialfire;
-
+package io.github.spigotrce.socialfire.velocity;
 
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.connection.PluginMessageEvent;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.proxy.messages.ChannelIdentifier;
+import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import com.velocitypowered.api.scheduler.ScheduledTask;
-import io.github.spigotrce.socialfire.command.impl.SocialCommand;
-import io.github.spigotrce.socialfire.command.singlecommand.SingleCommandManager;
-import io.github.spigotrce.socialfire.config.Config;
-import io.github.spigotrce.socialfire.model.AnnouncementsManager;
+import io.github.spigotrce.socialfire.velocity.command.impl.SocialCommand;
+import io.github.spigotrce.socialfire.velocity.command.singlecommand.SingleCommandManager;
+import io.github.spigotrce.socialfire.velocity.config.Config;
+import io.github.spigotrce.socialfire.velocity.model.AnnouncementsManager;
 import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Plugin(
         id = "socialfire",
@@ -45,6 +48,7 @@ public class SocialFire {
 
     public static SingleCommandManager SINGLE_COMMAND_MANAGER;
 
+    public static ChannelIdentifier CHANNEL_NAME;
     @Inject
     public SocialFire(Logger logger, @DataDirectory Path dataDirectory, ProxyServer proxyServer) {
         INSTANCE = this;
@@ -54,6 +58,7 @@ public class SocialFire {
         CONFIG = new Config(DATA_DIRECTORY);
         ANNOUNCEMENT_MANAGER = new AnnouncementsManager();
         TASKS = new ArrayList<>();
+        CHANNEL_NAME = MinecraftChannelIdentifier.from("socialfire:main");
     }
 
     @Subscribe
@@ -82,5 +87,11 @@ public class SocialFire {
         TASKS.forEach(ScheduledTask::cancel);
         LOGGER.info("SocialFire stopped successfully!");
         LOGGER.info("Bye!");
+    }
+
+    @Subscribe
+    public void onPluginMessage(PluginMessageEvent event) {
+        if (!Objects.equals(event.getIdentifier(), CHANNEL_NAME)) return;
+        event.setResult(PluginMessageEvent.ForwardResult.handled());
     }
 }

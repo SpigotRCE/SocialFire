@@ -1,8 +1,8 @@
-package io.github.spigotrce.socialfire.command;
+package io.github.spigotrce.socialfire.velocity.command;
 
 import com.mojang.brigadier.Command;
 import com.velocitypowered.api.command.BrigadierCommand;
-import io.github.spigotrce.socialfire.SocialFire;
+import io.github.spigotrce.socialfire.velocity.SocialFire;
 
 public abstract class AbstractBrigadierCommand {
     public final String commandName;

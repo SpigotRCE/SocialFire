@@ -1,0 +1,6 @@
+name: SocialFire
+description: ${project.description}
+version: ${project.version}
+main: io.github.spigotrce.socialfire.paper.PaperFire
+author: ${author}
+api-version: "1.13"

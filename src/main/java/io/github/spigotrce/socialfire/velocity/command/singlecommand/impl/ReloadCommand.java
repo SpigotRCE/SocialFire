@@ -1,10 +1,10 @@
-package io.github.spigotrce.socialfire.command.singlecommand.impl;
+package io.github.spigotrce.socialfire.velocity.command.singlecommand.impl;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandSource;
-import io.github.spigotrce.socialfire.SocialFire;
-import io.github.spigotrce.socialfire.command.AbstractBrigadierCommand;
+import io.github.spigotrce.socialfire.velocity.SocialFire;
+import io.github.spigotrce.socialfire.velocity.command.AbstractBrigadierCommand;
 import net.kyori.adventure.text.Component;
 
 import java.io.IOException;

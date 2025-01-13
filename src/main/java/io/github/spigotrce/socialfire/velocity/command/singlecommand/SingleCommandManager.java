@@ -1,10 +1,10 @@
-package io.github.spigotrce.socialfire.command.singlecommand;
+package io.github.spigotrce.socialfire.velocity.command.singlecommand;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandSource;
-import io.github.spigotrce.socialfire.command.AbstractBrigadierCommand;
-import io.github.spigotrce.socialfire.command.singlecommand.impl.ReloadCommand;
+import io.github.spigotrce.socialfire.velocity.command.AbstractBrigadierCommand;
+import io.github.spigotrce.socialfire.velocity.command.singlecommand.impl.ReloadCommand;
 
 public class SingleCommandManager extends AbstractBrigadierCommand {
     LiteralArgumentBuilder<CommandSource> command;
