@@ -42,8 +42,8 @@ public abstract class ConfigProvider {
     public abstract void onReload();
 
     public void reload() throws IOException {
-        onReload();
         getFileConfig().reload();
+        onReload();
     }
 
     public void update() throws IOException {
