@@ -1,8 +1,20 @@
+########################################################
+#                                                      #
+#  __   __   __               ___    __   ___          #
+# /__` /  \ /  ` |  /\  |    |__  | |__) |__           #
+# .__/ \__/ \__, | /~~\ |___ |    | |  \ |___          #
+#                                                      #
+#  __   __        ___         __       ___    __       #
+# /  ` /  \ |\ | |__  | |  | |__)  /\   |  | /  \ |\ | #
+# \__, \__/ | \| |    | \__/ |  \ /~~\  |  | \__/ | \| #
+#                                                      #
+########################################################
+
 announcements:
   store:
-    link: https://store.xyz.abc
-    interval: 180 # in seconds
-    sound: ""
+    link: https://store.xyz.abc # Click link for chat message
+    interval: 180 # Delay between each message in seconds
+    sound: "ENTITY_PLAYER_LEVELUP" # Sound to play when message is sent
     message: |-
       &f
       &e🛒 Server Store
@@ -12,11 +24,11 @@ announcements:
 
       &e➟ &nstore.xyz.abc
       &f
-    "action-bar": "§e🛒 &lSTORE §7| §fhttps://store.xyz.abc"
+    "action-bar": "§e🛒 &lSTORE §7| §fhttps://store.xyz.abc" # Action bar message
   discord:
     link: https://discord.gg/xyz
-    interval: 140 # in seconds
-    sound: ""
+    interval: 140
+    sound: "ENTITY_PLAYER_LEVELUP"
     message: |-
       &f
       &9✉ Server Discord
