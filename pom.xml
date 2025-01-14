@@ -6,7 +6,7 @@
     <artifactId>socialfire</artifactId>
     <version>1.1</version>
     <packaging>jar</packaging>
-    <name>SoicalFire</name>
+    <name>SocialFire</name>
 
     <build>
         <resources>
