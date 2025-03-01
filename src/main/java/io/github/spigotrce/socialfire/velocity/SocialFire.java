@@ -26,7 +26,7 @@ import java.util.Objects;
 @Plugin(
         id = "socialfire",
         name = "SocialFire",
-        version = "1.0",
+        version = "1.2",
         authors = "SpigotRCE"
 )
 public class SocialFire {
@@ -49,6 +49,8 @@ public class SocialFire {
     public static SingleCommandManager SINGLE_COMMAND_MANAGER;
 
     public static ChannelIdentifier CHANNEL_NAME;
+
+    public static String VERSION;
     @Inject
     public SocialFire(Logger logger, @DataDirectory Path dataDirectory, ProxyServer proxyServer) {
         INSTANCE = this;
@@ -64,6 +66,7 @@ public class SocialFire {
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
         LOGGER.info("Starting SocialFire...");
+        VERSION = PROXY_SERVER.getPluginManager().getPlugin("socialfire").get().getDescription().getVersion().get();
         LOGGER.info("Initializing config...");
         try {
             CONFIG.load();

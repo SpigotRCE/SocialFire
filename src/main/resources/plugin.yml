@@ -1,6 +1,6 @@
 name: SocialFire
-description: ${project.description}
+description: "Easy to use socials commands!"
 version: ${project.version}
 main: io.github.spigotrce.socialfire.paper.PaperFire
-author: ${author}
+author: "SpigotRCE & Contributors"
 api-version: "1.13"

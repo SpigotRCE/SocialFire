@@ -71,7 +71,10 @@ public class AnnouncementsManager {
                 serverConnection -> serverConnection
                         .sendPluginMessage(
                                 SocialFire.CHANNEL_NAME,
-                                out -> out.writeUTF(model.sound)
+                                out -> {
+                                    out.writeUTF(SocialFire.VERSION);
+                                    out.writeUTF(model.sound);
+                                }
                         )
         );
     }

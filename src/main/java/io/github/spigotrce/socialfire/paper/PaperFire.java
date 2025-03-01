@@ -2,6 +2,8 @@ package io.github.spigotrce.socialfire.paper;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,6 +39,14 @@ public class PaperFire extends JavaPlugin implements PluginMessageListener {
     public void onPluginMessageReceived(@NotNull String s, @NotNull Player player, byte @NotNull [] bytes) {
         if (!s.equalsIgnoreCase("socialfire:main")) return;
         ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
+        String version = in.readUTF();
+        if (!version.equals(getPluginMeta().getVersion())) {
+            player.kick(Component.text("[SocialFire] Proxy-Paper version de-sync! Check console for more information.").color(TextColor.color(255, 0, 0)));
+            getLogger().warning("[SocialFire] Proxy-Paper version de-sync for player: " + player.getName());
+            getLogger().warning("[SocialFire] Proxy version: " + version + " Paper version: " + getPluginMeta().getVersion());
+            getLogger().warning("[SocialFire] Make sure both proxy and paper are on the same plugin version");
+            return;
+        }
         String soundName = in.readUTF();
         if (soundName.equalsIgnoreCase("")) return;
         player.playSound(player.getLocation(), Sound.valueOf(soundName), 1f, 1f);
