@@ -1,4 +1,4 @@
-package io.github.spigotrce.socialfire.velocity.model;
+package io.github.spigotrce.socialfire.common.model;
 
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.scheduler.ScheduledTask;

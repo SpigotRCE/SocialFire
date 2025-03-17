@@ -13,8 +13,8 @@ import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import com.velocitypowered.api.scheduler.ScheduledTask;
 import io.github.spigotrce.socialfire.velocity.command.impl.SocialCommand;
 import io.github.spigotrce.socialfire.velocity.command.singlecommand.SingleCommandManager;
-import io.github.spigotrce.socialfire.velocity.config.Config;
-import io.github.spigotrce.socialfire.velocity.model.AnnouncementsManager;
+import io.github.spigotrce.socialfire.common.config.Config;
+import io.github.spigotrce.socialfire.common.model.AnnouncementsManager;
 import org.slf4j.Logger;
 
 import java.io.IOException;

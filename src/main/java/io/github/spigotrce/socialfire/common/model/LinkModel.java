@@ -1,4 +1,4 @@
-package io.github.spigotrce.socialfire.velocity.model;
+package io.github.spigotrce.socialfire.common.model;
 
 import java.util.Map;
 

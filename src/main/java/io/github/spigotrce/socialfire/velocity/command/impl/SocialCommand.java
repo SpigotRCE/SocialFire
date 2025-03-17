@@ -5,7 +5,7 @@ import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import io.github.spigotrce.socialfire.velocity.command.AbstractBrigadierCommand;
-import io.github.spigotrce.socialfire.velocity.model.LinkModel;
+import io.github.spigotrce.socialfire.common.model.LinkModel;
 import io.github.spigotrce.socialfire.velocity.SocialFire;
 import net.kyori.adventure.text.Component;
 

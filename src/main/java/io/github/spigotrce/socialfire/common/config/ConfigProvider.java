@@ -1,4 +1,4 @@
-package io.github.spigotrce.socialfire.velocity.config;
+package io.github.spigotrce.socialfire.common.config;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;

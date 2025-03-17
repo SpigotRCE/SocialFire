@@ -1,8 +1,8 @@
-package io.github.spigotrce.socialfire.velocity.config;
+package io.github.spigotrce.socialfire.common.config;
 
 import dev.dejvokep.boostedyaml.route.Route;
 import io.github.spigotrce.socialfire.velocity.SocialFire;
-import io.github.spigotrce.socialfire.velocity.model.LinkModel;
+import io.github.spigotrce.socialfire.common.model.LinkModel;
 
 import java.nio.file.Path;
 import java.util.HashMap;
