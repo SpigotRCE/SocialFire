@@ -2,7 +2,7 @@ package io.github.spigotrce.socialfire.velocity.command;
 
 import com.mojang.brigadier.Command;
 import com.velocitypowered.api.command.BrigadierCommand;
-import io.github.spigotrce.socialfire.velocity.SocialFire;
+import io.github.spigotrce.socialfire.velocity.VelocityFire;
 
 public abstract class AbstractBrigadierCommand {
     public final String commandName;
@@ -21,12 +21,12 @@ public abstract class AbstractBrigadierCommand {
     }
 
     public void register() {
-        SocialFire.PROXY_SERVER.getCommandManager().register(
-                SocialFire.PROXY_SERVER.getCommandManager().metaBuilder(commandName)
-                        .aliases(commandAliases).plugin(SocialFire.INSTANCE).build(),
+        VelocityFire.PROXY_SERVER.getCommandManager().register(
+                VelocityFire.PROXY_SERVER.getCommandManager().metaBuilder(commandName)
+                        .aliases(commandAliases).plugin(VelocityFire.INSTANCE).build(),
                 this.build()
         );
-        SocialFire.LOGGER.info("Registered command {}", commandName);
+        VelocityFire.LOGGER.info("Registered command {}", commandName);
     }
 
     public abstract BrigadierCommand build();

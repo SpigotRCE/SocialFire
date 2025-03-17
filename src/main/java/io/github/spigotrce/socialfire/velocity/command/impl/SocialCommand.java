@@ -6,7 +6,7 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import io.github.spigotrce.socialfire.velocity.command.AbstractBrigadierCommand;
 import io.github.spigotrce.socialfire.common.model.LinkModel;
-import io.github.spigotrce.socialfire.velocity.SocialFire;
+import io.github.spigotrce.socialfire.velocity.VelocityFire;
 import net.kyori.adventure.text.Component;
 
 public class SocialCommand extends AbstractBrigadierCommand {
@@ -26,7 +26,7 @@ public class SocialCommand extends AbstractBrigadierCommand {
                                 return SINGLE_SUCCESS;
                             }
 
-                            SocialFire.ANNOUNCEMENT_MANAGER.sendAnnouncement(player, model);
+                            VelocityFire.ANNOUNCEMENT_MANAGER.sendAnnouncement(player, model);
 
                             return SINGLE_SUCCESS;
                         }

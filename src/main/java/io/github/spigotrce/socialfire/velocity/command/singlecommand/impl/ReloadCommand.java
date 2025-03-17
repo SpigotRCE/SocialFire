@@ -3,7 +3,7 @@ package io.github.spigotrce.socialfire.velocity.command.singlecommand.impl;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandSource;
-import io.github.spigotrce.socialfire.velocity.SocialFire;
+import io.github.spigotrce.socialfire.velocity.VelocityFire;
 import io.github.spigotrce.socialfire.velocity.command.AbstractBrigadierCommand;
 import net.kyori.adventure.text.Component;
 
@@ -20,11 +20,11 @@ public class ReloadCommand extends AbstractBrigadierCommand {
                 .executes(commandContext -> {
                     commandContext.getSource().sendMessage(Component.text("Reloading SocialFire..."));
                     try {
-                        SocialFire.CONFIG.reload();
+                        VelocityFire.CONFIG.reload();
                     } catch (IOException e) {
                         commandContext.getSource().sendMessage(Component.text("Error reloading config: "
                                 + e.getMessage()));
-                        SocialFire.LOGGER.error("Error reloading config", e);
+                        VelocityFire.LOGGER.error("Error reloading config", e);
                     }
                     return SINGLE_SUCCESS;
                 })

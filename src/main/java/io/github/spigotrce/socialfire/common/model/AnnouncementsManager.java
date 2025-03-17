@@ -2,7 +2,7 @@ package io.github.spigotrce.socialfire.common.model;
 
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.scheduler.ScheduledTask;
-import io.github.spigotrce.socialfire.velocity.SocialFire;
+import io.github.spigotrce.socialfire.velocity.VelocityFire;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.Style;
@@ -26,13 +26,13 @@ public class AnnouncementsManager {
 
     public void reload() {
         tasks.forEach(ScheduledTask::cancel);
-        ANNOUNCEMENTS = SocialFire.CONFIG.getLinks();
+        ANNOUNCEMENTS = VelocityFire.CONFIG.getLinks();
 
 
         ANNOUNCEMENTS.forEach((name, model) -> {
-            ScheduledTask task = SocialFire.PROXY_SERVER.getScheduler().buildTask(
-                    SocialFire.INSTANCE,
-                            () -> SocialFire.PROXY_SERVER.getAllPlayers()
+            ScheduledTask task = VelocityFire.PROXY_SERVER.getScheduler().buildTask(
+                    VelocityFire.INSTANCE,
+                            () -> VelocityFire.PROXY_SERVER.getAllPlayers()
                                     .forEach(
                                             player -> sendAnnouncement(
                                                     player,
@@ -70,9 +70,9 @@ public class AnnouncementsManager {
         player.getCurrentServer().ifPresent(
                 serverConnection -> serverConnection
                         .sendPluginMessage(
-                                SocialFire.CHANNEL_NAME,
+                                VelocityFire.CHANNEL_NAME,
                                 out -> {
-                                    out.writeUTF(SocialFire.VERSION);
+                                    out.writeUTF(VelocityFire.VERSION);
                                     out.writeUTF(model.sound);
                                 }
                         )

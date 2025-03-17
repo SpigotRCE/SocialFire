@@ -1,7 +1,7 @@
 package io.github.spigotrce.socialfire.common.config;
 
 import dev.dejvokep.boostedyaml.route.Route;
-import io.github.spigotrce.socialfire.velocity.SocialFire;
+import io.github.spigotrce.socialfire.velocity.VelocityFire;
 import io.github.spigotrce.socialfire.common.model.LinkModel;
 
 import java.nio.file.Path;
@@ -14,7 +14,7 @@ public class Config extends ConfigProvider {
     }
 
     public void updateLinks() {
-        SocialFire.ANNOUNCEMENT_MANAGER.reload();
+        VelocityFire.ANNOUNCEMENT_MANAGER.reload();
     }
 
     public Map<String, LinkModel> getLinks() {

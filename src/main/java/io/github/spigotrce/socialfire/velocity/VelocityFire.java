@@ -29,8 +29,8 @@ import java.util.Objects;
         version = "1.2",
         authors = "SpigotRCE"
 )
-public class SocialFire {
-    public static SocialFire INSTANCE;
+public class VelocityFire {
+    public static VelocityFire INSTANCE;
 
     @Inject
     public static Logger LOGGER;
@@ -52,7 +52,7 @@ public class SocialFire {
 
     public static String VERSION;
     @Inject
-    public SocialFire(Logger logger, @DataDirectory Path dataDirectory, ProxyServer proxyServer) {
+    public VelocityFire(Logger logger, @DataDirectory Path dataDirectory, ProxyServer proxyServer) {
         INSTANCE = this;
         LOGGER = logger;
         DATA_DIRECTORY = dataDirectory;
