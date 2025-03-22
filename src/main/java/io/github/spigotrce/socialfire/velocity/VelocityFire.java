@@ -46,7 +46,6 @@ public class VelocityFire {
 
     public static VelocityAnnouncementsManager ANNOUNCEMENT_MANAGER;
 
-    public static List<ScheduledTask> TASKS;
 
     public static SingleCommandManager SINGLE_COMMAND_MANAGER;
 
@@ -61,7 +60,6 @@ public class VelocityFire {
         PROXY_SERVER = proxyServer;
         CONFIG = new Config(DATA_DIRECTORY);
         ANNOUNCEMENT_MANAGER = new VelocityAnnouncementsManager();
-        TASKS = new ArrayList<>();
         CHANNEL_NAME = MinecraftChannelIdentifier.from("socialfire:main");
     }
 
@@ -88,7 +86,6 @@ public class VelocityFire {
     @Subscribe
     public void onProxyShutdown(ProxyShutdownEvent event) {
         LOGGER.info("Stopping SocialFire...");
-        TASKS.forEach(ScheduledTask::cancel);
         LOGGER.info("SocialFire stopped successfully!");
         LOGGER.info("Bye!");
     }
