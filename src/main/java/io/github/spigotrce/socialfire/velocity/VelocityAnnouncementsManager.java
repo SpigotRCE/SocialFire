@@ -1,29 +1,17 @@
-package io.github.spigotrce.socialfire.common.model;
+package io.github.spigotrce.socialfire.velocity;
 
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.scheduler.ScheduledTask;
-import io.github.spigotrce.socialfire.velocity.VelocityFire;
+import io.github.spigotrce.socialfire.common.AbstractAnnouncementsManager;
+import io.github.spigotrce.socialfire.common.model.LinkModel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.Style;
-import net.kyori.adventure.text.format.TextColor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class AnnouncementsManager {
-    public Map<String, LinkModel> ANNOUNCEMENTS;
-    public ArrayList<ScheduledTask> tasks;
-
-    public AnnouncementsManager() {
-        ANNOUNCEMENTS = new HashMap<>();
-        tasks = new ArrayList<>();
-    }
-
+public class VelocityAnnouncementsManager extends AbstractAnnouncementsManager {
+    @Override
     public void reload() {
         tasks.forEach(ScheduledTask::cancel);
         ANNOUNCEMENTS = VelocityFire.CONFIG.getLinks();
@@ -48,7 +36,10 @@ public class AnnouncementsManager {
     }
 
     // TODO: Implement component formatting in LinkModel
-    public void sendAnnouncement(Player player, LinkModel model) {
+    @Override
+    public void sendAnnouncement(Object playerObject, LinkModel model) {
+        Player player = (Player) playerObject;
+
         String formattedMessage = model.message.replace("&", "§");
 
         Component messageComponent = Component.text(formattedMessage)
@@ -77,12 +68,5 @@ public class AnnouncementsManager {
                                 }
                         )
         );
-    }
-
-    private TextColor parseHexColors(String message) {
-        Matcher matcher = Pattern.compile("#([0-9A-Fa-f]{6})").matcher(message);
-        if (matcher.find())
-            return TextColor.color(Integer.parseInt(matcher.group(0)));
-        return TextColor.color(0xFFFFFF);
     }
 }

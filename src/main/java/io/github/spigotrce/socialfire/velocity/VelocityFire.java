@@ -2,19 +2,21 @@ package io.github.spigotrce.socialfire.velocity;
 
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.command.CommandExecuteEvent;
 import com.velocitypowered.api.event.connection.PluginMessageEvent;
+import com.velocitypowered.api.event.player.TabCompleteEvent;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.messages.ChannelIdentifier;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import com.velocitypowered.api.scheduler.ScheduledTask;
-import io.github.spigotrce.socialfire.velocity.command.impl.SocialCommand;
 import io.github.spigotrce.socialfire.velocity.command.singlecommand.SingleCommandManager;
 import io.github.spigotrce.socialfire.common.config.Config;
-import io.github.spigotrce.socialfire.common.model.AnnouncementsManager;
+import net.kyori.adventure.text.Component;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -42,7 +44,7 @@ public class VelocityFire {
 
     public static Config CONFIG;
 
-    public static AnnouncementsManager ANNOUNCEMENT_MANAGER;
+    public static VelocityAnnouncementsManager ANNOUNCEMENT_MANAGER;
 
     public static List<ScheduledTask> TASKS;
 
@@ -58,7 +60,7 @@ public class VelocityFire {
         DATA_DIRECTORY = dataDirectory;
         PROXY_SERVER = proxyServer;
         CONFIG = new Config(DATA_DIRECTORY);
-        ANNOUNCEMENT_MANAGER = new AnnouncementsManager();
+        ANNOUNCEMENT_MANAGER = new VelocityAnnouncementsManager();
         TASKS = new ArrayList<>();
         CHANNEL_NAME = MinecraftChannelIdentifier.from("socialfire:main");
     }
@@ -76,7 +78,6 @@ public class VelocityFire {
         CONFIG.updateLinks();
 
         LOGGER.info("Initializing commands...");
-        CONFIG.getLinks().forEach(SocialCommand::new);
         SINGLE_COMMAND_MANAGER = new SingleCommandManager();
 
         LOGGER.info("SocialFire successfully initialized!");
@@ -90,6 +91,32 @@ public class VelocityFire {
         TASKS.forEach(ScheduledTask::cancel);
         LOGGER.info("SocialFire stopped successfully!");
         LOGGER.info("Bye!");
+    }
+
+    @Subscribe
+    public void onTabComplete(TabCompleteEvent event) {
+        if (!event.getPartialMessage().startsWith("/"))
+            return;
+        int length = event.getPartialMessage().split(" ").length;
+        if (length > 1)
+            return;
+        CONFIG.getLinks().keySet().forEach(label -> {
+            if (label.startsWith(event.getPartialMessage()))
+                event.getSuggestions().add("/" + label);
+            if (length == 0)
+                event.getSuggestions().add("/" + label);
+        });
+    }
+
+    @Subscribe
+    public void onCommand(CommandExecuteEvent event) {
+        CONFIG.getLinks().keySet().forEach(label -> {
+            if (label.equals(event.getCommand()))
+                if (event.getCommandSource() instanceof Player player)
+                    ANNOUNCEMENT_MANAGER.sendAnnouncement(player, CONFIG.getLinks().get(label));
+                else
+                    event.getCommandSource().sendMessage(Component.text("Only players can execute this command!"));
+        });
     }
 
     @Subscribe
