@@ -2,6 +2,7 @@ package io.github.spigotrce.socialfire.paper;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import io.github.spigotrce.socialfire.common.Constants;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Sound;
@@ -19,7 +20,7 @@ public class PaperFire extends JavaPlugin implements PluginMessageListener {
     public void onEnable() {
         LOGGER = getLogger();
         LOGGER.info("Starting SocialFire...");
-        getServer().getMessenger().registerIncomingPluginChannel(this, "socialfire:main", this);
+        getServer().getMessenger().registerIncomingPluginChannel(this, Constants.CHANNEL, this);
         LOGGER.warning("SocialFire is running on paper(fork) server, all configuration is done only on the proxy side!");
         LOGGER.warning("If you don't have all proxies with this plugin, remove this plugin from the paper side as it is exploitable!");
         LOGGER.info("SocialFire successfully initialized!");
@@ -30,14 +31,14 @@ public class PaperFire extends JavaPlugin implements PluginMessageListener {
     @Override
     public void onDisable() {
         LOGGER.info("Stopping SocialFire...");
-        getServer().getMessenger().unregisterIncomingPluginChannel(this, "socialfire:main");
+        getServer().getMessenger().unregisterIncomingPluginChannel(this, Constants.CHANNEL);
         LOGGER.info("SocialFire stopped successfully!");
         LOGGER.info("Bye!");
     }
 
     @Override
     public void onPluginMessageReceived(@NotNull String s, @NotNull Player player, byte @NotNull [] bytes) {
-        if (!s.equalsIgnoreCase("socialfire:main")) return;
+        if (!s.equalsIgnoreCase(Constants.CHANNEL)) return;
         ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
         String version = in.readUTF();
         if (!version.equals(getPluginMeta().getVersion())) {

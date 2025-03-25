@@ -14,6 +14,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.messages.ChannelIdentifier;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import com.velocitypowered.api.scheduler.ScheduledTask;
+import io.github.spigotrce.socialfire.common.Constants;
 import io.github.spigotrce.socialfire.velocity.command.singlecommand.SingleCommandManager;
 import io.github.spigotrce.socialfire.common.config.Config;
 import net.kyori.adventure.text.Component;
@@ -60,7 +61,7 @@ public class VelocityFire {
         PROXY_SERVER = proxyServer;
         CONFIG = new Config(DATA_DIRECTORY);
         ANNOUNCEMENT_MANAGER = new VelocityAnnouncementsManager();
-        CHANNEL_NAME = MinecraftChannelIdentifier.from("socialfire:main");
+        CHANNEL_NAME = MinecraftChannelIdentifier.from(Constants.CHANNEL);
     }
 
     @Subscribe
@@ -74,6 +75,9 @@ public class VelocityFire {
             throw new RuntimeException(e);
         }
         CONFIG.updateLinks();
+
+        LOGGER.info("Initializing channel...");
+        PROXY_SERVER.getChannelRegistrar().register(CHANNEL_NAME);
 
         LOGGER.info("Initializing commands...");
         SINGLE_COMMAND_MANAGER = new SingleCommandManager();
@@ -94,13 +98,12 @@ public class VelocityFire {
     public void onTabComplete(TabCompleteEvent event) {
         if (!event.getPartialMessage().startsWith("/"))
             return;
-        int length = event.getPartialMessage().split(" ").length;
+        String partialMessage = event.getPartialMessage().substring(1);
+        int length = partialMessage.split(" ").length;
         if (length > 1)
             return;
         CONFIG.getLinks().keySet().forEach(label -> {
-            if (label.startsWith(event.getPartialMessage()))
-                event.getSuggestions().add("/" + label);
-            if (length == 0)
+            if (label.startsWith(partialMessage) || length == 0)
                 event.getSuggestions().add("/" + label);
         });
     }
