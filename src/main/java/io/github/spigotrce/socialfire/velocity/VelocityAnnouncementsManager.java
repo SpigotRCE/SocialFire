@@ -15,6 +15,7 @@ public class VelocityAnnouncementsManager extends AbstractAnnouncementsManager {
     public void reload() {
         tasks.forEach(ScheduledTask::cancel);
         ANNOUNCEMENTS = VelocityFire.CONFIG.getLinks();
+        VelocityFire.INSTANCE.reloadCommands();
 
 
         ANNOUNCEMENTS.forEach((name, model) -> {
