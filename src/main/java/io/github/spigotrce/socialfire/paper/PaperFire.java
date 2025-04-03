@@ -48,8 +48,16 @@ public class PaperFire extends JavaPlugin implements PluginMessageListener {
             getLogger().warning("[SocialFire] Make sure both proxy and paper are on the same plugin version");
             return;
         }
-        String soundName = in.readUTF();
-        if (soundName.equalsIgnoreCase("")) return;
-        player.playSound(player.getLocation(), Sound.valueOf(soundName), 1f, 1f);
+        switch (in.readUTF()) {
+            case "sound": {
+                String soundName = in.readUTF();
+                if (soundName.equalsIgnoreCase("")) return;
+                player.playSound(player.getLocation(), Sound.valueOf(soundName), 1f, 1f);
+            };
+            case "reload": {
+                player.updateCommands();
+            }
+        }
+
     }
 }

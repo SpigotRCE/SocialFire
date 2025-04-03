@@ -110,6 +110,22 @@ public class VelocityFire {
                         .build(),
                 new DummyCommand()
         );
+
+        for (Player player : PROXY_SERVER.getAllPlayers()) {
+            if (player.getCurrentServer().isEmpty())
+                continue;
+
+            player.getCurrentServer().ifPresent(
+                    serverConnection -> serverConnection
+                            .sendPluginMessage(
+                                    VelocityFire.CHANNEL_NAME,
+                                    out -> {
+                                        out.writeUTF(VelocityFire.VERSION);
+                                        out.writeUTF("reload");
+                                    }
+                            )
+            );
+        }
     }
 
     @Subscribe

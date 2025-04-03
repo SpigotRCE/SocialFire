@@ -65,6 +65,7 @@ public class VelocityAnnouncementsManager extends AbstractAnnouncementsManager {
                                 VelocityFire.CHANNEL_NAME,
                                 out -> {
                                     out.writeUTF(VelocityFire.VERSION);
+                                    out.writeUTF("sound");
                                     out.writeUTF(model.sound);
                                 }
                         )
