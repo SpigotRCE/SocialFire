@@ -26,7 +26,6 @@ public abstract class AbstractBrigadierCommand {
                         .aliases(commandAliases).plugin(VelocityFire.INSTANCE).build(),
                 this.build()
         );
-        VelocityFire.LOGGER.info("Registered command {}", commandName);
     }
 
     public abstract BrigadierCommand build();

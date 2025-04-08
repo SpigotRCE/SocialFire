@@ -5,17 +5,14 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandSource;
-import com.velocitypowered.api.event.command.CommandExecuteEvent;
 import com.velocitypowered.api.proxy.Player;
 import io.github.spigotrce.socialfire.velocity.VelocityFire;
 import io.github.spigotrce.socialfire.velocity.command.AbstractBrigadierCommand;
 import net.kyori.adventure.text.Component;
 
-import java.io.IOException;
-
-public class AnnouncementCommand extends AbstractBrigadierCommand {
-    public AnnouncementCommand() {
-        super(false, "announcement");
+public class AnnounceCommand extends AbstractBrigadierCommand {
+    public AnnounceCommand() {
+        super(false, "announce");
     }
 
     @Override
