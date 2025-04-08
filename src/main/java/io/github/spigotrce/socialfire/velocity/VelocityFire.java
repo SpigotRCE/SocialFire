@@ -19,6 +19,7 @@ import io.github.spigotrce.socialfire.common.Constants;
 import io.github.spigotrce.socialfire.velocity.command.singlecommand.SingleCommandManager;
 import io.github.spigotrce.socialfire.common.config.Config;
 import net.kyori.adventure.text.Component;
+import org.bstats.velocity.Metrics;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -54,12 +55,15 @@ public class VelocityFire {
 
     public static String VERSION;
 
+    private final Metrics.Factory METRICS_FACTORY;
+
     @Inject
-    public VelocityFire(Logger logger, @DataDirectory Path dataDirectory, ProxyServer proxyServer) {
+    public VelocityFire(Logger logger, @DataDirectory Path dataDirectory, ProxyServer proxyServer, Metrics.Factory metricsFactory) {
         INSTANCE = this;
         LOGGER = logger;
         DATA_DIRECTORY = dataDirectory;
         PROXY_SERVER = proxyServer;
+        METRICS_FACTORY = metricsFactory;
         CONFIG = new Config(DATA_DIRECTORY);
         ANNOUNCEMENT_MANAGER = new VelocityAnnouncementsManager();
         CHANNEL_NAME = MinecraftChannelIdentifier.from(Constants.CHANNEL);
@@ -82,6 +86,9 @@ public class VelocityFire {
 
         LOGGER.info("Initializing commands...");
         SINGLE_COMMAND_MANAGER = new SingleCommandManager();
+
+        LOGGER.info("Initializing bstats...");
+        METRICS_FACTORY.make(this, 25407);
 
         LOGGER.info("SocialFire successfully initialized!");
         LOGGER.info("Thanks for using SocialFire!");
