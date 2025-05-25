@@ -30,7 +30,7 @@ import java.util.Objects;
 @Plugin(
         id = "socialfire",
         name = "SocialFire",
-        version = "1.3",
+        version = "1.4",
         authors = "SpigotRCE"
 )
 public class VelocityFire {
