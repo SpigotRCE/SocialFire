@@ -10,7 +10,7 @@ import net.kyori.adventure.text.format.Style;
 
 import java.util.concurrent.TimeUnit;
 
-public class VelocityAnnouncementsManager extends AbstractAnnouncementsManager {
+public class VelocityAnnouncementsManager extends AbstractAnnouncementsManager<ScheduledTask, Player> {
     @Override
     public void reload() {
         tasks.forEach(ScheduledTask::cancel);
@@ -38,9 +38,7 @@ public class VelocityAnnouncementsManager extends AbstractAnnouncementsManager {
 
     // TODO: Implement component formatting in LinkModel
     @Override
-    public void sendAnnouncement(Object playerObject, LinkModel model) {
-        Player player = (Player) playerObject;
-
+    public void sendAnnouncement(Player player, LinkModel model) {
         String formattedMessage = model.message.replace("&", "§");
 
         Component messageComponent = Component.text(formattedMessage)

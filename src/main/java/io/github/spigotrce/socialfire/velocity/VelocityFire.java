@@ -15,8 +15,8 @@ import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.messages.ChannelIdentifier;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
+import com.velocitypowered.api.scheduler.ScheduledTask;
 import io.github.spigotrce.socialfire.common.Constants;
-import io.github.spigotrce.socialfire.velocity.command.singlecommand.SingleCommandManager;
 import io.github.spigotrce.socialfire.common.config.Config;
 import net.kyori.adventure.text.Component;
 import org.bstats.velocity.Metrics;
@@ -44,12 +44,9 @@ public class VelocityFire {
     @Inject
     public static ProxyServer PROXY_SERVER;
 
-    public static Config CONFIG;
+    public static Config<ScheduledTask, Player> CONFIG;
 
     public static VelocityAnnouncementsManager ANNOUNCEMENT_MANAGER;
-
-
-    public static SingleCommandManager SINGLE_COMMAND_MANAGER;
 
     public static ChannelIdentifier CHANNEL_NAME;
 
@@ -64,8 +61,8 @@ public class VelocityFire {
         DATA_DIRECTORY = dataDirectory;
         PROXY_SERVER = proxyServer;
         METRICS_FACTORY = metricsFactory;
-        CONFIG = new Config(DATA_DIRECTORY);
         ANNOUNCEMENT_MANAGER = new VelocityAnnouncementsManager();
+        CONFIG = new Config<>(DATA_DIRECTORY, ANNOUNCEMENT_MANAGER);
         CHANNEL_NAME = MinecraftChannelIdentifier.from(Constants.CHANNEL);
     }
 
@@ -85,7 +82,7 @@ public class VelocityFire {
         PROXY_SERVER.getChannelRegistrar().register(CHANNEL_NAME);
 
         LOGGER.info("Initializing commands...");
-        SINGLE_COMMAND_MANAGER = new SingleCommandManager();
+        new VelocityAdminCommand();
 
         LOGGER.info("Initializing bstats...");
         METRICS_FACTORY.make(this, 25407);

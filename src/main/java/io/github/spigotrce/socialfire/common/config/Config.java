@@ -1,20 +1,23 @@
 package io.github.spigotrce.socialfire.common.config;
 
 import dev.dejvokep.boostedyaml.route.Route;
-import io.github.spigotrce.socialfire.velocity.VelocityFire;
+import io.github.spigotrce.socialfire.common.AbstractAnnouncementsManager;
 import io.github.spigotrce.socialfire.common.model.LinkModel;
 
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Config extends ConfigProvider {
-    public Config(Path dataDirectory) {
+public class Config<T, P> extends ConfigProvider {
+    private final AbstractAnnouncementsManager<T, P> announcementsManager;
+
+    public Config(Path dataDirectory, AbstractAnnouncementsManager<T, P> announcementsManager) {
         super("config.yml", "file-version", dataDirectory.toFile());
+        this.announcementsManager = announcementsManager;
     }
 
     public void updateLinks() {
-        VelocityFire.ANNOUNCEMENT_MANAGER.reload();
+        announcementsManager.reload();
     }
 
     public Map<String, LinkModel> getLinks() {
@@ -42,10 +45,6 @@ public class Config extends ConfigProvider {
                         });
 
         return models;
-    }
-
-    public Object getExact(String route) {
-        return getFileConfig().get(Route.fromString(route));
     }
 
     @Override
