@@ -1,0 +1,6 @@
+name: SocialFire
+description: "Easy to use socials commands!"
+version: ${project.version}
+main: io.github.spigotrce.socialfire.bungee.BungeeFire
+author: "SpigotRCE & Contributors"
+api-version: "1.13"
