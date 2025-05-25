@@ -149,11 +149,6 @@ public class BungeeFire extends Plugin implements Listener {
 
         @Override
         public Iterable<String> onTabComplete(CommandSender sender, String[] args) {
-            if (args.length == 1) {
-                return BungeeFire.CONFIG.getLinks().keySet().stream()
-                        .filter(k -> k.startsWith(args[0].toLowerCase()))
-                        .collect(Collectors.toList());
-            }
             return Collections.emptyList();
         }
     }
