@@ -56,7 +56,6 @@ public class PaperFire extends JavaPlugin implements PluginMessageListener {
         }
         player.playSound(player.getLocation(), Sound.valueOf(soundName), 1f, 1f);
       }
-      ;
       case "reload": {
         player.updateCommands();
       }
