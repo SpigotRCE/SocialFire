@@ -6,6 +6,7 @@
 *.iws
 
 # IntelliJ
+!/.idea/codeStyles/Project.xml
 out/
 
 # Compiled class file

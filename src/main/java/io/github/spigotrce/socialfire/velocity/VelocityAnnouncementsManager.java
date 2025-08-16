@@ -11,62 +11,43 @@ import net.kyori.adventure.text.format.Style;
 import java.util.concurrent.TimeUnit;
 
 public class VelocityAnnouncementsManager extends AbstractAnnouncementsManager<ScheduledTask, Player> {
-    @Override
-    public void reload() {
-        tasks.forEach(ScheduledTask::cancel);
-        ANNOUNCEMENTS = VelocityFire.CONFIG.getLinks();
-        VelocityFire.INSTANCE.reloadCommands();
+  @Override public void reload() {
+    tasks.forEach(ScheduledTask::cancel);
+    ANNOUNCEMENTS = VelocityFire.CONFIG.getLinks();
+    VelocityFire.INSTANCE.reloadCommands();
 
 
-        ANNOUNCEMENTS.forEach((name, model) -> {
-            ScheduledTask task = VelocityFire.PROXY_SERVER.getScheduler().buildTask(
-                    VelocityFire.INSTANCE,
-                            () -> VelocityFire.PROXY_SERVER.getAllPlayers()
-                                    .forEach(
-                                            player -> sendAnnouncement(
-                                                    player,
-                                                    model
-                                            )
-                                    )
-                    )
-                    .repeat(model.interval, TimeUnit.SECONDS)
-                    .schedule();
+    ANNOUNCEMENTS.forEach((name, model) -> {
+      ScheduledTask task = VelocityFire.PROXY_SERVER.getScheduler()
+        .buildTask(VelocityFire.INSTANCE,
+          () -> VelocityFire.PROXY_SERVER.getAllPlayers().forEach(player -> sendAnnouncement(player, model)))
+        .repeat(model.interval, TimeUnit.SECONDS)
+        .schedule();
 
-            tasks.add(task);
-        });
-    }
+      tasks.add(task);
+    });
+  }
 
-    // TODO: Implement component formatting in LinkModel
-    @Override
-    public void sendAnnouncement(Player player, LinkModel model) {
-        String formattedMessage = model.message.replace("&", "§");
+  // TODO: Implement component formatting in LinkModel
+  @Override public void sendAnnouncement(Player player, LinkModel model) {
+    String formattedMessage = model.message.replace("&", "§");
 
-        Component messageComponent = Component.text(formattedMessage)
-                .style(Style.style(parseHexColors(formattedMessage)));
+    Component messageComponent = Component.text(formattedMessage).style(Style.style(parseHexColors(formattedMessage)));
 
-        player.sendMessage(messageComponent.clickEvent(
-                ClickEvent.openUrl(model.link)
-        ));
+    player.sendMessage(messageComponent.clickEvent(ClickEvent.openUrl(model.link)));
 
-        String formattedActionBar = model.actionBar.replace("&", "§");
+    String formattedActionBar = model.actionBar.replace("&", "§");
 
-        Component actionBarComponent = Component.text(formattedActionBar)
-                .style(Style.style(parseHexColors(formattedActionBar)));
+    Component actionBarComponent =
+      Component.text(formattedActionBar).style(Style.style(parseHexColors(formattedActionBar)));
 
-        player.sendActionBar(
-                actionBarComponent
-        );
+    player.sendActionBar(actionBarComponent);
 
-        player.getCurrentServer().ifPresent(
-                serverConnection -> serverConnection
-                        .sendPluginMessage(
-                                VelocityFire.CHANNEL_NAME,
-                                out -> {
-                                    out.writeUTF(VelocityFire.VERSION);
-                                    out.writeUTF("sound");
-                                    out.writeUTF(model.sound);
-                                }
-                        )
-        );
-    }
+    player.getCurrentServer()
+      .ifPresent(serverConnection -> serverConnection.sendPluginMessage(VelocityFire.CHANNEL_NAME, out -> {
+        out.writeUTF(VelocityFire.VERSION);
+        out.writeUTF("sound");
+        out.writeUTF(model.sound);
+      }));
+  }
 }
